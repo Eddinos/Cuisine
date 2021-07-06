@@ -132,6 +132,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       date: Date @dateformat
       author: String
       slug: String
+      ingredients: [String!]!
     }
 
     type Fields {

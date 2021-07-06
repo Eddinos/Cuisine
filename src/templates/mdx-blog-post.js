@@ -8,7 +8,6 @@ import Seo from "../components/seo"
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.mdx
-  console.log(data)
   const siteTitle = data?.site?.siteMetadata?.title || `EM cuisine`
   const { previous, next } = data
 
@@ -31,7 +30,7 @@ const BlogPostTemplate = ({ data, location }) => {
             <MDXRenderer>{post.body}</MDXRenderer>
         </section>
         <hr />
-        {post.frontmatter.banana}
+        {post.frontmatter.ingredients}
         <footer>
           <Bio />
         </footer>
@@ -77,6 +76,7 @@ export const pageQuery = graphql`
         title
         date
         author
+        ingredients
       }
     }
   }
