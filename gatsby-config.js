@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `EM Cuisine`,
     author: {
-      name: `Kyle Mathews`,
+      name: `Eddine Ozor`,
       summary: `who lives and works in San Francisco building useful things.`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
@@ -123,6 +123,7 @@ module.exports = {
     },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-gatsby-cloud`,
+    `gatsby-plugin-mdx`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

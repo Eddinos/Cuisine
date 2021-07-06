@@ -22,6 +22,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             }
           }
         }
+        allMdx {
+          nodes {
+            id
+            slug
+          }
+        }
       }
     `
   )
@@ -35,6 +41,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   const posts = result.data.allMarkdownRemark.nodes
+  const mdxPosts = result.data.allMdx.nodes
 
   // Create blog posts pages
   // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
@@ -56,6 +63,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       })
     })
   }
+
+  mdxPosts.forEach(({ slug, id }, index) => {
+    createPage({
+      path: slug || 'bonjour',
+      component: path.resolve(`./src/templates/mdx-blog-post.js`),
+      // you can use the values in this context in
+      // our page layout component
+      context: { id },
+    })
+  })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
@@ -86,6 +103,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       author: Author
       siteUrl: String
       social: Social
+      banana: String
     }
 
     type Author {
@@ -108,8 +126,20 @@ exports.createSchemaCustomization = ({ actions }) => {
       date: Date @dateformat
     }
 
+    type MdxFrontmatter {
+      title: String
+      description: String
+      date: Date @dateformat
+      author: String
+      slug: String
+    }
+
     type Fields {
       slug: String
+    }
+
+    type Piou {
+      word: String
     }
   `)
 }
