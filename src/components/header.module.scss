@@ -1,0 +1,14 @@
+.HeaderClass {
+    box-shadow: 0px 0px 2px black;
+    height: 4em;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background-color: white;
+
+    h1 {
+        padding-left: 0.5em;
+    }
+}
