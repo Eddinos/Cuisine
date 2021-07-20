@@ -65,13 +65,25 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   mdxPosts.forEach(({ slug, id }, index) => {
+    const previousPostId = index === 0 ? null : mdxPosts[index - 1].id
+    const nextPostId = index === mdxPosts.length - 1 ? null : mdxPosts[index + 1].id
+
     createPage({
       path: slug || 'bonjour',
       component: path.resolve(`./src/templates/mdx-blog-post.js`),
       // you can use the values in this context in
       // our page layout component
-      context: { id },
+      context: { 
+        id,
+        previousPostId,
+        nextPostId
+      },
     })
+  })
+
+  createPage({
+    path: 'highlighted-articles',
+    component: path.resolve(`./src/templates/highlights.js`)
   })
 }
 
@@ -89,7 +101,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 }
 
-exports.createSchemaCustomization = ({ actions }) => {
+exports.createSchemaCustomization = ({ actions, schema }) => {
   const { createTypes } = actions
 
   // Explicitly define the siteMetadata {} object
@@ -133,6 +145,8 @@ exports.createSchemaCustomization = ({ actions }) => {
       author: String
       slug: String
       ingredients: [String!]!
+      highlight: Boolean
+      image: String
     }
 
     type Fields {
