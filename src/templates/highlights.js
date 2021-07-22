@@ -1,22 +1,17 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
 
-import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import Showcase from "../components/showcase"
 
-const BlogIndex = ({ data, location }) => {
+const Highlights = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMdx.nodes
-  const highlightedArticles = data.highlighted.nodes
-  const highlightedImages = data.highlightImages.nodes
 
   if (posts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
-        <Seo title="Recettes de Manue et Eddine" />
-        <Bio />
+        <Seo title="All posts" />
         <p>
           No blog posts found. Add markdown posts to "content/blog" (or the
           directory you specified for the "gatsby-source-filesystem" plugin in
@@ -28,9 +23,7 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <Seo title="Recettes de Manue et Eddine" />
-      <Showcase highlighted={ highlightedArticles } 
-                images={ highlightedImages } title="Les recettes du moment" />
+      <Seo title="All posts" />
       <ol className="global-wrapper" style={{ listStyle: `none` }}>
         {posts.map(post => {
           const title = post?.frontmatter?.title || post?.fields?.slug || post?.slug
@@ -67,7 +60,7 @@ const BlogIndex = ({ data, location }) => {
   )
 }
 
-export default BlogIndex
+export default Highlights
 
 export const pageQuery = graphql`
   query {
@@ -76,20 +69,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-      nodes {
-        excerpt
-        fields {
-          slug
-        }
-        frontmatter {
-          date(formatString: "MMMM DD, YYYY")
-          title
-          description
-        }
-      }
-    }
-    allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMdx(filter: {frontmatter: {highlight: {eq: true}}}) {
       nodes {
         id
         slug
@@ -99,34 +79,6 @@ export const pageQuery = graphql`
           date(formatString: "MMMM DD, YYYY")
         }
         excerpt
-      }
-    }
-    highlighted: allMdx(
-      filter: {frontmatter: {highlight: {eq: true}}}
-      limit: 3
-      sort: {fields: frontmatter___date}
-    ) {
-      nodes {
-        frontmatter {
-          title
-          image
-        }
-        slug
-      }
-    }
-    highlightImages: allFile (
-      filter: { 
-        dir: {regex: "/blog/"} 
-        extension: { in: ["jpg", "png"] } 
-      }) {
-      nodes {
-        name
-        childImageSharp {
-          gatsbyImageData (
-            aspectRatio: 1
-            placeholder: BLURRED
-            )
-        }
       }
     }
   }

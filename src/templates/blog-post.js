@@ -17,7 +17,7 @@ const BlogPostTemplate = ({ data, location }) => {
         description={post.frontmatter.description || post.excerpt}
       />
       <article
-        className="blog-post"
+        className="blog-post global-wrapper"
         itemScope
         itemType="http://schema.org/Article"
       >
@@ -30,6 +30,7 @@ const BlogPostTemplate = ({ data, location }) => {
           itemProp="articleBody"
         />
         <hr />
+        {post.frontmatter.banana}
         <footer>
           <Bio />
         </footer>
@@ -85,6 +86,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        banana
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
