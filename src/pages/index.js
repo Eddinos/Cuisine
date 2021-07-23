@@ -31,38 +31,43 @@ const BlogIndex = ({ data, location }) => {
       <Seo title="Recettes de Manue et Eddine" />
       <Showcase highlighted={ highlightedArticles } 
                 images={ highlightedImages } title="Les recettes du moment" />
-      <ol className="global-wrapper" style={{ listStyle: `none` }}>
-        {posts.map(post => {
-          const title = post?.frontmatter?.title || post?.fields?.slug || post?.slug
+      <div className="global-wrapper">
+        <h4 style={{ paddingTop: 24, paddingBottom: 0 }}>
+          Les dernières recettes
+        </h4>
+        <ol style={{ listStyle: `none` }}>
+          {posts.map(post => {
+            const title = post?.frontmatter?.title || post?.fields?.slug || post?.slug
 
-          return (
-            <li key={post?.fields?.slug || post?.slug}>
-              <article
-                className="post-list-item"
-                itemScope
-                itemType="http://schema.org/Article"
-              >
-                <header>
-                  <h2>
-                    <Link to={post.fields?.slug || post?.slug} itemProp="url">
-                      <span itemProp="headline">{title}</span>
-                    </Link>
-                  </h2>
-                  <small>{post.frontmatter.date}</small>
-                </header>
-                <section>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: post.frontmatter.description || post.excerpt,
-                    }}
-                    itemProp="description"
-                  />
-                </section>
-              </article>
-            </li>
-          )
-        })}
-      </ol>
+            return (
+              <li key={post?.fields?.slug || post?.slug}>
+                <article
+                  className="post-list-item"
+                  itemScope
+                  itemType="http://schema.org/Article"
+                >
+                  <header>
+                    <h2>
+                      <Link to={post.fields?.slug || post?.slug} itemProp="url">
+                        <span itemProp="headline">{title}</span>
+                      </Link>
+                    </h2>
+                    <small>{post.frontmatter.date}</small>
+                  </header>
+                  <section>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: post.frontmatter.description || post.excerpt,
+                      }}
+                      itemProp="description"
+                    />
+                  </section>
+                </article>
+              </li>
+            )
+          })}
+        </ol>
+      </div>
     </Layout>
   )
 }

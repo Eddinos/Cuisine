@@ -144,7 +144,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       date: Date @dateformat
       author: String
       slug: String
-      ingredients: [String!]!
+      ingredients: [String!]
       highlight: Boolean
       image: String
     }
