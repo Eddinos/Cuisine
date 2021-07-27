@@ -1,0 +1,34 @@
+.IngredientsClassName {
+
+    td:first-child {
+        border-right: 1px solid #ccc;
+    }
+
+    tr:nth-child(2n) {
+        background-color: rgb(255, 248, 240);
+    }
+
+    tr:nth-child(2n+1) {
+        background-color: rgb(224, 224, 224);
+    }
+
+    tr {
+
+        &:nth-child(2n) {
+            background-color: rgb(205, 76, 106);
+
+            &:hover {
+                background-color: rgb(205, 76, 106, 0.9);
+            }
+        }
+
+        &:nth-child(2n+1) {
+            background-color: rgb(70, 116, 124);
+            color: white;
+
+            &:hover {
+                background-color: rgb(70, 116, 124, 0.9);
+            }
+        }
+    }
+}

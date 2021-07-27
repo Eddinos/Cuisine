@@ -144,9 +144,10 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       date: Date @dateformat
       author: String
       slug: String
-      ingredients: [String!]
       highlight: Boolean
       image: String
+      featuredImage: File @fileByRelativePath
+      ingredients: [Ingredient!]
     }
 
     type Fields {
@@ -155,6 +156,11 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
 
     type Piou {
       word: String
+    }
+
+    type Ingredient {
+      label: String
+      quantity: String
     }
   `)
 }

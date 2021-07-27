@@ -4,11 +4,11 @@ import { Link } from "gatsby"
 // @ts-ignore
 import { HeaderClass } from "./header.module.scss"
 
-const Header = ({ children }) => {
+const Header = ({ title }) => {
     return (
         <header className={HeaderClass}>
             <h1 className="main-heading">
-                <Link to="/">Cuisine</Link>
+                <Link to="/">{title}</Link>
             </h1>
         </header>
     )

@@ -5,6 +5,9 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import Ingredients from "../components/ingredients"
+
+import IngredientsContext from '../providers/ingredients'
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.mdx
@@ -27,10 +30,12 @@ const BlogPostTemplate = ({ data, location }) => {
           <p>{post.frontmatter.date}</p>
         </header>
         <section itemProp="articleBody">
-            <MDXRenderer>{post.body}</MDXRenderer>
+            <IngredientsContext.Provider value={post.frontmatter.ingredients}>
+              <MDXRenderer components={Ingredients}>{post.body}</MDXRenderer>
+            </IngredientsContext.Provider>
+            
         </section>
         <hr />
-        {post.frontmatter.ingredients}
         <footer>
           <Bio />
         </footer>
@@ -78,7 +83,10 @@ export const pageQuery = graphql`
         title
         date
         author
-        ingredients
+        ingredients {
+          label
+          quantity
+        }
       }
     },
     previous: mdx(id: { eq: $previousPostId }) {
