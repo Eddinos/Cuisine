@@ -10,7 +10,6 @@ const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMdx.nodes
   const highlightedArticles = data.highlighted.nodes
-  const highlightedImages = data.highlightImages.nodes
 
   if (posts.length === 0) {
     return (
@@ -30,7 +29,7 @@ const BlogIndex = ({ data, location }) => {
     <Layout location={location} title={siteTitle}>
       <Seo title="Recettes de Manue et Eddine" />
       <Showcase highlighted={ highlightedArticles } 
-                images={ highlightedImages } title="Les recettes du moment" />
+                title="Les recettes du moment" />
       <div className="global-wrapper">
         <h4 style={{ paddingTop: 24, paddingBottom: 0 }}>
           Les dernières recettes
@@ -115,23 +114,16 @@ export const pageQuery = graphql`
         frontmatter {
           title
           image
+          featuredImage {
+            childImageSharp {
+              gatsbyImageData (
+                aspectRatio: 1
+                placeholder: BLURRED
+                )
+            }
+          }
         }
         slug
-      }
-    }
-    highlightImages: allFile (
-      filter: { 
-        dir: {regex: "/blog/"} 
-        extension: { in: ["jpg", "png"] } 
-      }) {
-      nodes {
-        name
-        childImageSharp {
-          gatsbyImageData (
-            aspectRatio: 1
-            placeholder: BLURRED
-            )
-        }
       }
     }
   }

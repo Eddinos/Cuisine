@@ -7,9 +7,13 @@ import {
   ShowcaseClassName, 
   ShowcaseClassName__card, 
   ShowcaseClassName__articlesWrapper, 
-  ShowcaseClassName__title } from "./showcase.module.scss"
+  ShowcaseClassName__title } 
+  // @ts-ignore
+  from "./showcase.module.scss"
 
 const Showcase = ({ highlighted = [], images = [], title }) => {
+
+  console.log(highlighted)
     return (
         <div className={ ShowcaseClassName }>
           <h2 className={ ShowcaseClassName__title }>{ title }</h2>
@@ -18,7 +22,7 @@ const Showcase = ({ highlighted = [], images = [], title }) => {
               highlighted.map((article, index) => 
                 <Link to={article.slug} key={index} className={ ShowcaseClassName__card }>
                   <figure>
-                    <GatsbyImage image={getImage(images.find(i => i.name === article.frontmatter.image))}
+                    <GatsbyImage image={getImage(article.frontmatter.featuredImage)}
                                 objectFit="cover"
                                 alt={article.slug} />
                     <figcaption>
